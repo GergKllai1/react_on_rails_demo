@@ -1,26 +1,27 @@
 class AllItems extends React.Component {
-    getInitialState() {
-        return { items: [] }
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: []
     };
+  }
 
-    componentDidMount() {
-        $.getJSON('/api/v1/items.json', (response) => { this.setState({ items: response }) });
-    };
+  componentDidMount() {
+    fetch('/api/v1/items.json')
+      .then((response) => {return response.json()})
+      .then((data) => {this.setState({ items: data }) });
+  }
 
-    render() {
-        const items= this.state.items.map((item) => {
-            return (
-                <div>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                </div>
-            )
-        });
-    
-        return(
-            <div>
-                {items}
-            </div>
-        )
-    }
+  render() {
+    const items = this.state.items.map(item => {
+      return (
+        <div>
+          <h3>{item.name}</h3>
+          <p>{item.description}</p>
+        </div>
+      );
+    });
+
+    return <div>{items}</div>;
+  }
 }
