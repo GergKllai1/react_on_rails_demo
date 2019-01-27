@@ -2,7 +2,15 @@ const NewItem = props => {
   let formFields = {};
 
   return (
-    <form>
+    <form
+      onSubmit={e => {
+        props.handleFormSubmit(
+          formFields.name.value,
+          formFields.description.value
+        );
+        e.target.reset();
+      }}
+    >
       <input
         ref={input => (formFields.name = input)}
         placeholder="Enter the name of the item"

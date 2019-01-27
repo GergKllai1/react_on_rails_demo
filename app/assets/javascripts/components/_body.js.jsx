@@ -4,7 +4,11 @@ class Body extends React.Component {
     this.state = {
       items: []
     };
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
+  handleFormSubmit(name, description) {
+    console.log('form works!')
+  };
 
   componentDidMount() {
     fetch('/api/v1/items.json')
@@ -14,7 +18,7 @@ class Body extends React.Component {
   render() {
     return (
       <div>
-        <NewItem />
+        <NewItem handleFormSubmit={this.handleFormSubmit}/>
         <AllItems items={this.state.items}/>
       </div>
     );
